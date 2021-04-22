@@ -1,0 +1,6 @@
+---
+- name: db_servers to ad_servers
+  source_ip: db_servers
+  source_port: any
+  dest_ip: ad_servers
+  dest_port: 22
