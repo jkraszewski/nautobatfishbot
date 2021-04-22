@@ -1,0 +1,4 @@
+db_servers to ad_servers ports:
+  - 22
+  - 23
+  - 44 _ 55 #44 though 55
