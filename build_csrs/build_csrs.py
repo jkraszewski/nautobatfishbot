@@ -13,7 +13,7 @@ def open_yml_file(yml_file):
 
 def make_connection(ip, username, password):
     net_connect = netmiko.ConnectHandler(device_type='cisco_ios', ip=ip, username=username, password=password)
-    return
+    return net_connect
 
 
 def send_command(net_connect, command):
@@ -27,7 +27,7 @@ router_data = open_yml_file(yml_file)
 
 
 for router in router_data:
-    net_connect = make_connection(router, username, password)
+    net_connect = make_connection(router['name'], username, password)
     for interface in interfaces:
         config = [
             f'interface {interface}',
