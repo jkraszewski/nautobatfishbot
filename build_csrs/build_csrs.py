@@ -1,6 +1,7 @@
 import netmiko
 from getpass import getpass
 import yaml
+from pprint import pprint
 
 
 def open_yml_file(yml_file):
@@ -28,14 +29,16 @@ router_data = open_yml_file(yml_file)
 
 for router in router_data:
     net_connect = make_connection(router['name'], username, password)
-    for interface in interfaces:
-        config = [
-            f'interface {interface}',
-            f'ip address {interfaces[interface]}',
-            'no shut',
-            'cdp enable'
-        ]
-        net_connect.send_config_set(config)
+    for interface in router['interfaces']:
+        for interface_name, ip_snm in interface.items():
+            config = [
+                f'interface {interface_name}',
+                f'ip address {ip_snm}',
+                'no shut',
+                'cdp enable'
+            ]
+            # pprint(config)
+            net_connect.send_config_set(config)
     config = [
         'router eigrp 10',
         'network 192.168.0.0 0.0.255.255'
